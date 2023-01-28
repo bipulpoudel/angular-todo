@@ -1,0 +1,11 @@
+<mat-card class="login-card">
+  <mat-card-header class="row-spaced">
+    <mat-card-title>Todos</mat-card-title>
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      Add item
+    </button>
+  </mat-card-header>
+  <mat-card-content>
+    <app-todo-item *ngFor="let item of todoList" [todo]="item"></app-todo-item>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,30 @@
+<div class="wrapper">
+  <div class="row-spaced">
+    <p class="title">{{ todo?.title }}</p>
+    <div class="row">
+      <mat-slide-toggle
+        matTooltip="Mark the item as completed"
+        color="primary"
+        [(ngModel)]="isCompleted"
+      >
+      </mat-slide-toggle>
+      <button
+        mat-icon-button
+        matTooltip="Edit this todo item"
+        aria-label="Edit this todo item"
+        color="accent"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        matTooltip="Delete this todo item"
+        aria-label="Delete this todo item"
+        color="warn"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+  <p>{{ todo?.description }}</p>
+</div>
