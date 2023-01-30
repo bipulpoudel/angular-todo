@@ -5,21 +5,27 @@ import {
   BaseEntity,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
 } from "typeorm";
 
-@Entity()
+import { User } from "./index";
+
+@Entity({ name: "todos" })
 export class Todo extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   title: string;
 
-  @Column()
+  @Column({ nullable: true })
   description?: string;
 
-  @Column()
-  userId: number;
+  @Column({ type: "boolean", nullable: true, default: false })
+  completed: boolean;
+
+  @ManyToOne(() => User, (user) => user.todos)
+  user: User;
 
   @CreateDateColumn()
   createdAt: Date;

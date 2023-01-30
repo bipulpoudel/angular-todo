@@ -26,8 +26,6 @@ export const login = async (req, res) => {
       email,
     });
 
-    console.log(email);
-
     if (!userExists) {
       return sendError({
         res,
@@ -36,8 +34,6 @@ export const login = async (req, res) => {
         message: "Please provide a valid email address and password",
       });
     }
-
-    console.log(userExists);
 
     const isMatched = await bcrypt.compare(password, userExists.password);
 
