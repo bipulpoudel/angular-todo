@@ -5,4 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
   constructor() {}
+
+  logOut() {
+    // header -> auth token
+    //http client ->
+  }
 }

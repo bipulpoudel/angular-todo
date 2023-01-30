@@ -1,9 +1,14 @@
 <h2 mat-dialog-title>Add todo item</h2>
-<mat-dialog-content class="todo-card">
+<mat-dialog-content id="todo-form" class="todo-card">
   <form class="todo-form" [formGroup]="todoForm">
     <mat-form-field appearance="outline">
       <mat-label>Title</mat-label>
-      <input matInput placeholder="Title" formControlName="title" />
+      <input
+        matInput
+        placeholder="Title"
+        formControlName="title"
+        [(ngModel)]="formData.title"
+      />
       <mat-error> Please provide a valid title for item </mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
@@ -12,6 +17,7 @@
         matInput
         placeholder="Description/ notes (optional)"
         formControlName="description"
+        [(ngModel)]="formData.description"
       ></textarea>
     </mat-form-field>
   </form>
@@ -28,4 +34,4 @@
     Add
   </button>
 </mat-dialog-actions>
-<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>

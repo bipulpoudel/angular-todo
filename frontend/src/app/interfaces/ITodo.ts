@@ -1,7 +1,7 @@
 export default interface Todo {
-  id: string;
+  id?: string;
   title: string;
   description?: string;
-  completed: boolean;
-  userId: string;
+  completed?: boolean;
+  user?: string;
 }
