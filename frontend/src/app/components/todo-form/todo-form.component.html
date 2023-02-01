@@ -1,37 +1,34 @@
-<h2 mat-dialog-title>Add todo item</h2>
-<mat-dialog-content id="todo-form" class="todo-card">
-  <form class="todo-form" [formGroup]="todoForm">
-    <mat-form-field appearance="outline">
-      <mat-label>Title</mat-label>
-      <input
-        matInput
-        placeholder="Title"
-        formControlName="title"
-        [(ngModel)]="formData.title"
-      />
-      <mat-error> Please provide a valid title for item </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Description/ notes</mat-label>
-      <textarea
-        matInput
-        placeholder="Description/ notes (optional)"
-        formControlName="description"
-        [(ngModel)]="formData.description"
-      ></textarea>
-    </mat-form-field>
-  </form>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button
-    mat-raised-button
-    color="primary"
-    [disabled]="!todoForm.valid"
-    type="submit"
-    (click)="onSubmit()"
-  >
-    Add
-  </button>
-</mat-dialog-actions>
+<form class="todo-form" [formGroup]="todoForm">
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input
+      matInput
+      placeholder="Title"
+      formControlName="title"
+      [(ngModel)]="formData.title"
+    />
+    <mat-error> Please provide a valid title for item </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Description/ notes</mat-label>
+    <textarea
+      matInput
+      placeholder="Description/ notes (optional)"
+      formControlName="description"
+      [(ngModel)]="formData.description"
+    ></textarea>
+  </mat-form-field>
+  <div>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!todoForm.valid"
+      type="submit"
+      (click)="onSubmit()"
+    >
+      {{ selectedData ? "Update" : "Add" }}
+    </button>
+  </div>
+</form>
+
 <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>

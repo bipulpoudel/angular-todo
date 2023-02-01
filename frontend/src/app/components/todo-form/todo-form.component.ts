@@ -1,6 +1,5 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Todo } from 'src/app/interfaces';
 import { TodoService } from 'src/app/services/todo/todo.service';
 
@@ -10,12 +9,26 @@ import { TodoService } from 'src/app/services/todo/todo.service';
   styleUrls: ['./todo-form.component.scss'],
 })
 export class TodoFormComponent {
-  constructor(
-    private fb: FormBuilder,
-    private todoService: TodoService,
-    //receive data from parent component
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  @Input() selectedData: Todo | null = {
+    title: '',
+    description: '',
+  };
+
+  constructor(private fb: FormBuilder, private todoService: TodoService) {}
+
+  formData = {
+    title: '',
+    description: '',
+  };
+
+  ngOnChanges() {
+    if (this.selectedData) {
+      this.formData = {
+        title: this.selectedData?.title || '',
+        description: this.selectedData?.description || '',
+      };
+    }
+  }
 
   loading = false;
 
@@ -24,22 +37,29 @@ export class TodoFormComponent {
     description: new FormControl(''),
   });
 
-  formData: Todo = {
-    title: '',
-    description: '',
-  };
-
-  onSubmit() {
+  addTodo() {
     this.loading = true;
 
     let data: Todo = {
-      title: this.formData.title,
-      description: this.formData.description,
+      title: this.formData?.title || '',
+      description: this.formData?.description,
     };
 
     this.todoService.create(data).subscribe((res) => {
       this.loading = false;
       this.todoForm.reset();
     });
+  }
+
+  updateTodo() {
+    this.loading = true;
+  }
+
+  onSubmit() {
+    if (this.selectedData) {
+      this.updateTodo();
+    } else {
+      this.addTodo();
+    }
   }
 }

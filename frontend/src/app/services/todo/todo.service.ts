@@ -18,10 +18,7 @@ export class TodoService {
     return this.http.post('http://localhost:9000/todos/create', formData);
   }
 
-  async list() {
-    // make get http request to backend
-
-    let response = await this.http.get('http://localhost:9000/todos/list');
-    console.log(response);
+  list() {
+    return this.http.get('http://localhost:9000/todos/list');
   }
 }

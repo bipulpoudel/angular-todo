@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-
-import { TodoFormComponent } from 'src/app/components/todo-form/todo-form.component';
 
 import ITodo from 'src/app/interfaces/ITodo';
 import { TodoService } from 'src/app/services/todo/todo.service';
@@ -13,35 +10,32 @@ import { TodoService } from 'src/app/services/todo/todo.service';
 })
 export class IndexComponent {
   todoList: ITodo[] = [];
+  remainingTodos: ITodo[] = [];
+  completedTodos: ITodo[] = [];
+  selectedTodo: ITodo | null = null;
 
-  constructor(public dialog: MatDialog, private todoService: TodoService) {}
+  constructor(private todoService: TodoService) {}
 
   ngOnInit() {
-    let response = this.todoService.list();
-    console.log(response);
+    this.getAllTodos();
   }
 
-  openDialog() {
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-
-    const dialogRef = this.dialog.open(TodoFormComponent, {
-      disableClose: true,
-      autoFocus: true,
-      id: 'todo-form',
-      data: {
-        closeDialog: this.closeDialog.bind(this),
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result: any) => {
-      console.log(`Dialog result: ${result}`);
-    });
+  onSelectedTodo(todo: ITodo | null) {
+    this.selectedTodo = todo;
   }
 
-  closeDialog() {
-    this.dialog.getDialogById('todo-form')?.close();
+  ngDoCheck() {
+    this.remainingTodos = this.todoList.filter(
+      (todo) => todo?.completed === false
+    );
+    this.completedTodos = this.todoList.filter(
+      (todo) => todo?.completed === true
+    );
+  }
+
+  getAllTodos() {
+    this.todoService.list().subscribe((response: any) => {
+      this.todoList = response?.data?.todos;
+    });
   }
 }

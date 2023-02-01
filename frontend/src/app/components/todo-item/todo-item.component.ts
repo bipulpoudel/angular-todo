@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import Todo from 'src/app/interfaces/ITodo';
 
 @Component({
@@ -9,5 +9,21 @@ import Todo from 'src/app/interfaces/ITodo';
 export class TodoItemComponent {
   @Input() todo: Todo | null = null;
 
-  isCompleted = this.todo?.completed !== null;
+  @Output() selectedTodo = new EventEmitter<Todo | null>();
+
+  isCompleted = false;
+
+  ngOnInit() {
+    if (this.todo) {
+      this.isCompleted = this.todo?.completed ? true : false;
+    }
+  }
+
+  toggleCompleted() {
+    this.isCompleted = !this.isCompleted;
+  }
+
+  selectTodo() {
+    this.selectedTodo.emit(this.todo);
+  }
 }
