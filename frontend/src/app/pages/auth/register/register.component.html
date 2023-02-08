@@ -1,27 +1,33 @@
-<div class="register">
-  <mat-card class="register-card">
+<form class="login" [formGroup]="registerForm">
+  <mat-card class="login-card">
     <mat-card-header>
-      <mat-card-title>Create your account</mat-card-title>
+      <mat-card-title>
+        Register to continue
+      </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form class="register-form">
+      <div class="login-form">
+        <app-alert
+          *ngIf="errorMessage !== ''"
+          [message]="errorMessage"
+        />
         <mat-form-field appearance="outline">
           <mat-label>First name</mat-label>
           <input
             matInput
             placeholder="First name"
-            name="firstName"
-            [formControl]="firstNameFormControl"
+            formControlName="firstName"
+            [(ngModel)]="formData.firstName"
           />
-          <mat-error> Please provide a valid first name</mat-error>
+          <mat-error> Please provide a valid first name </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Last name</mat-label>
           <input
             matInput
             placeholder="Last name"
-            name="lastName"
-            [formControl]="lastNameFormControl"
+            formControlName="lastName"
+            [(ngModel)]="formData.lastName"
           />
           <mat-error> Please provide a valid last name </mat-error>
         </mat-form-field>
@@ -30,8 +36,8 @@
           <input
             matInput
             placeholder="Email"
-            name="email"
-            [formControl]="emailFormControl"
+            formControlName="email"
+            [(ngModel)]="formData.email"
           />
           <mat-error> Please provide a valid email address </mat-error>
         </mat-form-field>
@@ -41,13 +47,26 @@
             matInput
             type="password"
             placeholder="Password"
-            name="password"
-            [formControl]="passwordFormControl"
+            formControlName="password"
+            [(ngModel)]="formData.password"
           />
           <mat-error> Please provide a valid password </mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary">Register</button>
-      </form>
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="!registerForm.valid || loading === true"
+          type="submit"
+          (click)="onSubmit()"
+        >
+        <div *ngIf="loading === true">
+          <mat-spinner diameter="20"></mat-spinner>
+        </div>
+        <div *ngIf="loading === false">
+          Login
+        </div>
+        </button>
+      </div>
     </mat-card-content>
   </mat-card>
-</div>
+</form>

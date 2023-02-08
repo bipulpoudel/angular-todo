@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TokenService } from 'src/app/services/token/token.service';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +14,12 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authServices: AuthService,
-    private snackBar: MatSnackBar
+    private tokenService: TokenService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
+
+  returnUrl = '/';
 
   formData = {
     email: '',
@@ -23,6 +28,11 @@ export class LoginComponent {
 
   loading = false;
   errorMessage = '';
+
+  ngOnInit(): void {
+    this.returnUrl = this.route.snapshot.paramMap.get('returnUrl') || '';
+    this.errorMessage = this.route.snapshot.paramMap.get('errorMessage') || '';
+  }
 
   loginForm = this.fb.group({
     email: new FormControl('', [Validators.required]),
@@ -42,20 +52,21 @@ export class LoginComponent {
         password: this.formData?.password || '',
       };
 
-      this.authServices.login(data).subscribe(
-        (res) => {
+      this.authServices.login(data).subscribe({
+        next: (res: any) => {
+          const { data } = res;
+          this.tokenService.saveToken(data.token);
           this.loading = false;
           this.loginForm.reset();
-        },
-        (err) => {
-          this.loading = false;
-          const { error } = err;
 
-          if (error?.message) {
-            this.errorMessage = error.message;
-          }
-        }
-      );
+          this.router.navigate([this.returnUrl]);
+        },
+        error: (err) => {
+          const { error } = err;
+          this.loading = false;
+          this.errorMessage = error.message;
+        },
+      });
     }
   }
 }
