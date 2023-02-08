@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Todo } from 'src/app/interfaces';
+import { ITodo } from 'src/app/interfaces';
 import { TodoService } from 'src/app/services/todo/todo.service';
 
 @Component({
@@ -9,26 +9,12 @@ import { TodoService } from 'src/app/services/todo/todo.service';
   styleUrls: ['./todo-form.component.scss'],
 })
 export class TodoFormComponent {
-  @Input() selectedData: Todo | null = {
-    title: '',
-    description: '',
-  };
-
   constructor(private fb: FormBuilder, private todoService: TodoService) {}
 
   formData = {
     title: '',
     description: '',
   };
-
-  ngOnChanges() {
-    if (this.selectedData) {
-      this.formData = {
-        title: this.selectedData?.title || '',
-        description: this.selectedData?.description || '',
-      };
-    }
-  }
 
   loading = false;
 
@@ -40,7 +26,7 @@ export class TodoFormComponent {
   addTodo() {
     this.loading = true;
 
-    let data: Todo = {
+    let data: ITodo = {
       title: this.formData?.title || '',
       description: this.formData?.description,
     };
@@ -56,9 +42,7 @@ export class TodoFormComponent {
   }
 
   onSubmit() {
-    if (this.selectedData) {
-      this.updateTodo();
-    } else {
+    if (this.todoForm.valid) {
       this.addTodo();
     }
   }

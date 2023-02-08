@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'todo';
 
-  userLoggedIn = true;
+  userLoggedIn = false;
 
   constructor() {}
 }

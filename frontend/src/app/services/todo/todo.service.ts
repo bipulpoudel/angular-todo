@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Todo } from 'src/app/interfaces';
+import { ITodo } from 'src/app/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,7 @@ import { Todo } from 'src/app/interfaces';
 export class TodoService {
   constructor(private http: HttpClient) {}
 
-  create(data: Todo) {
+  create(data: ITodo) {
     let formData = {
       title: data.title,
       description: data.description,

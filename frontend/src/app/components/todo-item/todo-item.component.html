@@ -1,22 +1,14 @@
 <mat-list-item>
-  <div class="row-spaced">
-    <div class="row">
+  <div class="wrapper">
+    <div class="detail">
       <mat-checkbox
-        class="example-margin"
         [checked]="isCompleted"
         color="primary"
-      ></mat-checkbox>
-      <div>
-        <p matListItemTitle>{{ todo?.title }}</p>
-        <p matListItemLine>{{ todo?.description }}</p>
-      </div>
+      />
+      <div class="title" matListItemTitle>{{ todo?.title }}</div>
     </div>
     <div class="row" *ngIf="todo?.completed === false">
-      <button
-        mat-icon-button
-        aria-label="Example icon button with a home icon"
-        (click)="selectTodo()"
-      >
+      <button mat-icon-button aria-label="Example icon button with a home icon">
         <mat-icon>edit</mat-icon>
       </button>
       <button

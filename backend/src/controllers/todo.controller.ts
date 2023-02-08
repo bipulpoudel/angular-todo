@@ -3,7 +3,13 @@ import bcrypt from "bcryptjs";
 
 import { IUser } from "../interfaces";
 import { Todo, User } from "../entity";
-import { errorHandler, generateToken, sendError, sendSuccess } from "../utils";
+import {
+  errorHandler,
+  generateToken,
+  sendError,
+  sendSuccess,
+  translateText,
+} from "../utils";
 
 // @desc   Create todo for user
 // @route   POST /todos/create
@@ -67,6 +73,49 @@ export const list = async (req, res) => {
       message: "Todos has been fetched successfully.",
       data: {
         todos: user.todos,
+      },
+    });
+  } catch (err) {
+    errorHandler(res, err);
+  }
+};
+
+// @desc   Translate todo
+// @route   POST /todos/translate/:id
+// @access  Private
+
+export const translate = async (req, res) => {
+  const { id } = req.params;
+  const { language } = req.body;
+
+  const schema = Yup.object().shape({
+    language: Yup.string().required("Language is a required field"),
+  });
+
+  try {
+    await schema.validate({
+      language,
+    });
+
+    const todo = await Todo.findOne({
+      where: { id },
+    });
+
+    if (!todo)
+      return sendError({ res, status: 404, message: "Todo not found." });
+
+    console.log(todo.title);
+
+    const translatedTodo = await translateText({
+      text: todo.title,
+      to: language,
+    });
+
+    return sendSuccess({
+      res,
+      message: "Todo has been translated successfully.",
+      data: {
+        translatedTodo,
       },
     });
   } catch (err) {

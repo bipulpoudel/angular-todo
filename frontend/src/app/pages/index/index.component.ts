@@ -12,16 +12,11 @@ export class IndexComponent {
   todoList: ITodo[] = [];
   remainingTodos: ITodo[] = [];
   completedTodos: ITodo[] = [];
-  selectedTodo: ITodo | null = null;
 
   constructor(private todoService: TodoService) {}
 
   ngOnInit() {
     this.getAllTodos();
-  }
-
-  onSelectedTodo(todo: ITodo | null) {
-    this.selectedTodo = todo;
   }
 
   ngDoCheck() {

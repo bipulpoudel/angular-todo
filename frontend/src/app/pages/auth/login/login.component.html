@@ -1,17 +1,21 @@
-<div class="login">
+<form class="login" [formGroup]="loginForm">
   <mat-card class="login-card">
     <mat-card-header>
       <mat-card-title>Login to continue</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form class="login-form">
+      <div class="login-form">
+        <app-alert
+          *ngIf="errorMessage !== ''"
+          [message]="errorMessage"
+        />
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
           <input
             matInput
-            placeholder="Email"
-            name="email"
-            [formControl]="emailFormControl"
+            placeholder="Title"
+            formControlName="email"
+            [(ngModel)]="formData.email"
           />
           <mat-error> Please provide a valid email address </mat-error>
         </mat-form-field>
@@ -19,15 +23,27 @@
           <mat-label>Password</mat-label>
           <input
             matInput
-            type="password"
-            placeholder="Password"
-            name="password"
-            [formControl]="passwordFormControl"
+            placeholder="Title"
+            formControlName="password"
+            [(ngModel)]="formData.password"
           />
           <mat-error> Please provide a valid password </mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary">Login</button>
-      </form>
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="!loginForm.valid || loading === true"
+          type="submit"
+          (click)="onSubmit()"
+        >
+        <div *ngIf="loading === true">
+          <mat-spinner diameter="20"></mat-spinner>
+        </div>
+        <div *ngIf="loading === false">
+          Login
+        </div>
+        </button>
+      </div>
     </mat-card-content>
   </mat-card>
-</div>
+</form>

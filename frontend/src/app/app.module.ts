@@ -17,6 +17,7 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { MaterialModule } from './material.module';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { TodoFormComponent } from './components/todo-form/todo-form.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { TodoFormComponent } from './components/todo-form/todo-form.component';
     RegisterComponent,
     TodoItemComponent,
     TodoFormComponent,
+    AlertComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, MaterialModule, HttpClientModule],
   providers: [],

@@ -1,3 +1,4 @@
-import Todo from './ITodo';
+import IResponse from './IResponse';
+import ITodo from './ITodo';
 
-export type { Todo };
+export type { ITodo, IResponse };
