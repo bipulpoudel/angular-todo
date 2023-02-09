@@ -10,22 +10,12 @@ import { TodoService } from 'src/app/services/todo/todo.service';
 })
 export class IndexComponent {
   todoList: ITodo[] = [];
-  remainingTodos: ITodo[] = [];
-  completedTodos: ITodo[] = [];
+  language = 'fr';
 
   constructor(private todoService: TodoService) {}
 
   ngOnInit() {
     this.getAllTodos();
-  }
-
-  ngDoCheck() {
-    this.remainingTodos = this.todoList.filter(
-      (todo) => todo?.completed === false
-    );
-    this.completedTodos = this.todoList.filter(
-      (todo) => todo?.completed === true
-    );
   }
 
   getAllTodos() {

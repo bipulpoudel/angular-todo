@@ -19,8 +19,6 @@ export class LoginComponent {
     private router: Router
   ) {}
 
-  returnUrl = '/';
-
   formData = {
     email: '',
     password: '',
@@ -30,8 +28,7 @@ export class LoginComponent {
   errorMessage = '';
 
   ngOnInit(): void {
-    this.returnUrl = this.route.snapshot.paramMap.get('returnUrl') || '';
-    this.errorMessage = this.route.snapshot.paramMap.get('errorMessage') || '';
+    this.errorMessage = this.route.snapshot.paramMap.get('message') || '';
   }
 
   loginForm = this.fb.group({
@@ -59,7 +56,7 @@ export class LoginComponent {
           this.loading = false;
           this.loginForm.reset();
 
-          this.router.navigate([this.returnUrl]);
+          window.location.reload();
         },
         error: (err) => {
           const { error } = err;

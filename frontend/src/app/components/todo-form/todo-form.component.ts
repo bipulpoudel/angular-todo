@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ITodo } from 'src/app/interfaces';
 import { TodoService } from 'src/app/services/todo/todo.service';
 
@@ -9,18 +10,19 @@ import { TodoService } from 'src/app/services/todo/todo.service';
   styleUrls: ['./todo-form.component.scss'],
 })
 export class TodoFormComponent {
-  constructor(private fb: FormBuilder, private todoService: TodoService) {}
-
-  formData = {
-    title: '',
-    description: '',
-  };
+  constructor(
+    private fb: FormBuilder,
+    private todoService: TodoService,
+    private snackBar: MatSnackBar
+  ) {}
 
   loading = false;
+  formData = {
+    title: '',
+  };
 
   todoForm = this.fb.group({
     title: new FormControl('', [Validators.required]),
-    description: new FormControl(''),
   });
 
   addTodo() {
@@ -28,17 +30,12 @@ export class TodoFormComponent {
 
     let data: ITodo = {
       title: this.formData?.title || '',
-      description: this.formData?.description,
     };
 
     this.todoService.create(data).subscribe((res) => {
       this.loading = false;
       this.todoForm.reset();
     });
-  }
-
-  updateTodo() {
-    this.loading = true;
   }
 
   onSubmit() {

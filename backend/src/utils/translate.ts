@@ -14,7 +14,6 @@ export const translateText = async ({ text, to }) => {
       method: "post",
       headers: {
         "Ocp-Apim-Subscription-Key": key,
-        // location required if you're using a multi-service or regional (not global) resource.
         "Ocp-Apim-Subscription-Region": location,
         "Content-type": "application/json",
         "X-ClientTraceId": uuidv4().toString(),
@@ -34,6 +33,6 @@ export const translateText = async ({ text, to }) => {
 
     return response?.data[0]?.translations[0]?.text || text;
   } catch (error) {
-    console.log(error?.response);
+    console.log(error?.response?.data?.error);
   }
 };

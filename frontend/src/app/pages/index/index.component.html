@@ -9,28 +9,27 @@
 
 <mat-card class="todo-card">
   <mat-card-header>
-    <mat-card-title>Todo list</mat-card-title>
+    <div class="row-space-between">
+      <mat-card-title>Todo list</mat-card-title>
+      <mat-form-field appearance="fill">
+        <select matNativeControl [(ngModel)]="language">
+          <option value="fr">France</option>
+          <option value="ne">Nepali</option>
+          <option value="hi">Hindi</option>
+          <option value="en">English</option>
+          <option value="it">Italy</option>
+          <option value="es">Spain</option>
+        </select>
+      </mat-form-field>
+    </div>
   </mat-card-header>
   <mat-card-content>
-    <mat-list role="list">
+    <div class="list">
       <app-todo-item
-        *ngFor="let todo of remainingTodos"
+        *ngFor="let todo of todoList"
         [todo]="todo"
+        [language]="language"
       ></app-todo-item>
-    </mat-list>
-  </mat-card-content>
-</mat-card>
-
-<mat-card class="todo-card">
-  <mat-card-header>
-    <mat-card-title>Completed todos</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-list role="list">
-      <app-todo-item
-        *ngFor="let todo of completedTodos"
-        [todo]="todo"
-      ></app-todo-item>
-    </mat-list>
+    </div>
   </mat-card-content>
 </mat-card>

@@ -1,6 +1,11 @@
 import express from "express";
 
-import { create, list, translate } from "../controllers/todo.controller";
+import {
+  create,
+  remove,
+  list,
+  translate,
+} from "../controllers/todo.controller";
 
 const router = express.Router();
 
@@ -8,6 +13,6 @@ const router = express.Router();
 router.route("/list").get(list);
 router.route("/create").post(create);
 router.route("/translate/:id").post(translate);
-// router.route("/register").post(register);
+router.route("/delete/:id").delete(remove);
 
 export default router;

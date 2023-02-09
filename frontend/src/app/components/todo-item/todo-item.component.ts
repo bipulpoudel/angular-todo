@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import Todo from 'src/app/interfaces/ITodo';
+import { TodoService } from 'src/app/services/todo/todo.service';
 
 @Component({
   selector: 'app-todo-item',
@@ -7,17 +8,57 @@ import Todo from 'src/app/interfaces/ITodo';
   styleUrls: ['todo-item.component.scss'],
 })
 export class TodoItemComponent {
-  @Input() todo: Todo | null = null;
+  constructor(private todoService: TodoService) {}
 
-  isCompleted = false;
+  @Input() todo: Todo | null = null;
+  @Input() language: string = 'es';
+
+  loading = '';
+  translation = '';
 
   ngOnInit() {
     if (this.todo) {
-      this.isCompleted = this.todo?.completed ? true : false;
+      this.translation = this.todo?.title;
     }
   }
 
-  toggleCompleted() {
-    this.isCompleted = !this.isCompleted;
+  translate() {
+    this.loading = 'translate';
+
+    if (!this.todo?.id) return console.log('No todo id found');
+
+    this.todoService
+      .translate({
+        id: this.todo?.id,
+        language: this.language,
+      })
+      .subscribe({
+        next: (res: any) => {
+          const { data } = res;
+          this.translation = data.translation || '';
+          this.loading = '';
+        },
+        error: (err: any) => {
+          console.log(err);
+          this.loading = '';
+        },
+      });
+  }
+
+  delete() {
+    this.loading = 'delete';
+
+    if (!this.todo?.id) return console.log('No todo id found');
+
+    this.todoService.delete({ id: this.todo?.id }).subscribe({
+      next: (res: any) => {
+        this.loading = '';
+        window.location.reload();
+      },
+      error: (err: any) => {
+        console.log(err);
+        this.loading = '';
+      },
+    });
   }
 }

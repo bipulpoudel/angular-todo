@@ -1,23 +1,25 @@
-<mat-list-item>
-  <div class="wrapper">
-    <div class="detail">
-      <mat-checkbox
-        [checked]="isCompleted"
-        color="primary"
-      />
-      <div class="title" matListItemTitle>{{ todo?.title }}</div>
-    </div>
-    <div class="row" *ngIf="todo?.completed === false">
-      <button mat-icon-button aria-label="Example icon button with a home icon">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        color="warn"
-        aria-label="Example icon button with a home icon"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
-    </div>
+<div class="wrapper">
+  <div class="detail">
+    <div class="title" matListItemTitle>{{ translation }}</div>
   </div>
-</mat-list-item>
+  <div class="row">
+    <button
+      mat-stroked-button
+      class="button"
+      aria-label="Translate icon"
+      color="primary"
+      (click)="translate()"
+    >
+      <div *ngIf="loading === 'translate'">
+        <mat-spinner diameter="20"></mat-spinner>
+      </div>
+      <div *ngIf="loading !== 'translate'">Translate</div>
+    </button>
+    <button mat-flat-button color="warn" class="button" (click)="delete()">
+      <div *ngIf="loading === 'delete'">
+        <mat-spinner diameter="20"></mat-spinner>
+      </div>
+      <div *ngIf="loading !== 'delete'">Delete</div>
+    </button>
+  </div>
+</div>

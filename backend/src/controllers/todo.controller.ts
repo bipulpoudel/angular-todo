@@ -24,14 +24,12 @@ export const create = async (req, res) => {
   try {
     await schema.validate({
       title,
-      description,
     });
 
     const user = await User.findOneBy({ id: 1 });
 
     const todo = await Todo.create({
       title,
-      description,
       user,
     });
 
@@ -43,7 +41,6 @@ export const create = async (req, res) => {
       data: {
         todo: {
           title: todo.title,
-          description: todo.description,
         },
       },
     });
@@ -80,6 +77,32 @@ export const list = async (req, res) => {
   }
 };
 
+// @desc   Delete todo
+// @route   DELETE /todos/delete/:id
+// @access  Private
+
+export const remove = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const todo = await Todo.findOneBy({
+      id,
+    });
+
+    if (!todo)
+      return sendError({ res, status: 404, message: "Todo not found." });
+
+    await todo.remove();
+
+    return sendSuccess({
+      res,
+      message: "Todo has been deleted successfully.",
+    });
+  } catch (err) {
+    errorHandler(res, err);
+  }
+};
+
 // @desc   Translate todo
 // @route   POST /todos/translate/:id
 // @access  Private
@@ -104,9 +127,7 @@ export const translate = async (req, res) => {
     if (!todo)
       return sendError({ res, status: 404, message: "Todo not found." });
 
-    console.log(todo.title);
-
-    const translatedTodo = await translateText({
+    const translation = await translateText({
       text: todo.title,
       to: language,
     });
@@ -115,7 +136,7 @@ export const translate = async (req, res) => {
       res,
       message: "Todo has been translated successfully.",
       data: {
-        translatedTodo,
+        translation: translation,
       },
     });
   } catch (err) {

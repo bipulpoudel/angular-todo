@@ -12,7 +12,9 @@ import { TokenService } from '../services/token/token.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+
+// This guard is used to prevent users from accessing the login page and register page if they are already logged in.
+export class LoginGuard implements CanActivate {
   constructor(private tokenService: TokenService, private router: Router) {}
 
   canActivate(
@@ -25,14 +27,8 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     const token = this.tokenService.getToken();
 
-    if (!token) {
-      // navigate to login page
-      this.router.navigate([
-        'auth/login',
-        {
-          message: 'You must be logged in to access this page.',
-        },
-      ]);
+    if (token) {
+      this.router.navigate(['/']);
 
       return false;
     }

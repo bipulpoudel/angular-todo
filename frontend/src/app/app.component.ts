@@ -10,13 +10,21 @@ export class AppComponent {
 
   constructor(private tokenService: TokenService) {}
 
-  ngOnInit(): void {
+  checkUserLoggedIn(): void {
     let token = this.tokenService.getToken();
 
-    if (token) {
+    if (token !== '' && token !== null) {
       this.userLoggedIn = true;
     } else {
       this.userLoggedIn = false;
     }
+  }
+
+  ngOnChanges(changes: any): void {
+    this.checkUserLoggedIn();
+  }
+
+  ngOnInit(): void {
+    this.checkUserLoggedIn();
   }
 }
