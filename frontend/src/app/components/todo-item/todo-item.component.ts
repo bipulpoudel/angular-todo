@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import Todo from 'src/app/interfaces/ITodo';
 import { TodoService } from 'src/app/services/todo/todo.service';
 
@@ -12,6 +12,8 @@ export class TodoItemComponent {
 
   @Input() todo: Todo | null = null;
   @Input() language: string = 'es';
+
+  @Output() refreshTodos = new EventEmitter();
 
   loading = '';
   translation = '';
@@ -53,7 +55,7 @@ export class TodoItemComponent {
     this.todoService.delete({ id: this.todo?.id }).subscribe({
       next: (res: any) => {
         this.loading = '';
-        window.location.reload();
+        this.refreshTodos.emit();
       },
       error: (err: any) => {
         console.log(err);

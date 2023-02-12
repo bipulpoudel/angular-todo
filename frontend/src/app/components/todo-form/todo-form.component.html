@@ -13,13 +13,14 @@
     <button
       mat-raised-button
       color="primary"
-      [disabled]="!todoForm.valid"
+      [disabled]="!todoForm.valid || loading === true"
       type="submit"
       (click)="onSubmit()"
     >
-      Add
+      <div *ngIf="loading === true">
+        <mat-spinner diameter="20"></mat-spinner>
+      </div>
+      <div *ngIf="loading === false">Add</div>
     </button>
   </div>
 </form>
-
-<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>

@@ -23,4 +23,8 @@ export class IndexComponent {
       this.todoList = response?.data?.todos;
     });
   }
+
+  refreshTodos(event: any) {
+    this.getAllTodos();
+  }
 }

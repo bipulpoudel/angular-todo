@@ -12,8 +12,8 @@ const router = express.Router();
 
 // private routes
 router.route("/list").get(auth, list);
-router.route("/create").post(create);
-router.route("/translate/:id").post(translate);
-router.route("/delete/:id").delete(remove);
+router.route("/create").post(auth, create);
+router.route("/translate/:id").post(auth, translate);
+router.route("/delete/:id").delete(auth, remove);
 
 export default router;

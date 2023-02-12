@@ -3,7 +3,7 @@
     <mat-card-title>Add to do </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <app-todo-form></app-todo-form>
+    <app-todo-form (refreshTodos)="refreshTodos($event)"></app-todo-form>
   </mat-card-content>
 </mat-card>
 
@@ -29,6 +29,7 @@
         *ngFor="let todo of todoList"
         [todo]="todo"
         [language]="language"
+        (refreshTodos)="refreshTodos($event)"
       ></app-todo-item>
     </div>
   </mat-card-content>
