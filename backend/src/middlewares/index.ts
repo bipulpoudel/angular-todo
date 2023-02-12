@@ -17,7 +17,7 @@ export const middlewaresConfig = (app) => {
   app.use(
     cors({
       credentials: true,
-      origin: "http://localhost:4200",
+      origin: [process.env.CLIENT_URL, "http://localhost:4200"],
     })
   );
 };

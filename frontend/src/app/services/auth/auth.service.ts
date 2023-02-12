@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { API_URL } from '../config';
 
 @Injectable({
   providedIn: 'root',
@@ -7,13 +8,15 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
+  apiURL = API_URL + '/auth';
+
   login(data: any) {
     let formData = {
       email: data.email,
       password: data.password,
     };
     // make post http request to backend
-    return this.http.post('http://localhost:9000/auth/login', formData);
+    return this.http.post(this.apiURL + '/login', formData);
   }
 
   register(data: any) {
@@ -25,6 +28,6 @@ export class AuthService {
       type: data.type,
     };
     // make post http request to backend
-    return this.http.post('http://localhost:9000/auth/register', formData);
+    return this.http.post(this.apiURL + '/register', formData);
   }
 }
