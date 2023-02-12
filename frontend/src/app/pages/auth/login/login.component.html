@@ -16,7 +16,6 @@
             type="email"
             placeholder="Email"
             formControlName="email"
-            [(ngModel)]="formData.email"
           />
           <mat-error> Please provide a valid email address </mat-error>
         </mat-form-field>
@@ -27,7 +26,6 @@
             type="password"
             placeholder="Password"
             formControlName="password"
-            [(ngModel)]="formData.password"
           />
           <mat-error> Please provide a valid password </mat-error>
         </mat-form-field>
@@ -44,6 +42,14 @@
         <div *ngIf="loading === false">
           Login
         </div>
+        </button>
+        <button
+          mat-stroked-button	
+          type="button"
+          (click)="goToRegister()"
+          class="register-button"
+          >
+          Don't have account? Register
         </button>
       </div>
     </mat-card-content>

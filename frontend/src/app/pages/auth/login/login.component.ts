@@ -44,9 +44,11 @@ export class LoginComponent {
       this.loading = true;
       this.errorMessage = '';
 
+      const values = this.loginForm.value;
+
       let data = {
-        email: this.formData?.email || '',
-        password: this.formData?.password || '',
+        email: values?.email || '',
+        password: values?.password || '',
       };
 
       this.authServices.login(data).subscribe({
@@ -54,16 +56,19 @@ export class LoginComponent {
           const { data } = res;
           this.tokenService.saveToken(data.token);
           this.loading = false;
-          this.loginForm.reset();
 
           window.location.reload();
         },
         error: (err) => {
-          const { error } = err;
+          console.log(err);
           this.loading = false;
-          this.errorMessage = error.message;
+          this.errorMessage = err;
         },
       });
     }
+  }
+
+  goToRegister() {
+    this.router.navigate(['auth/register']);
   }
 }

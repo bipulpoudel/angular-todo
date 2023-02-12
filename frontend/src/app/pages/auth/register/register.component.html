@@ -63,8 +63,16 @@
           <mat-spinner diameter="20"></mat-spinner>
         </div>
         <div *ngIf="loading === false">
-          Login
+          Register
         </div>
+        </button>
+        <button
+          mat-stroked-button	
+          type="button"
+          (click)="goToLogin()"
+          class="login-button"
+          >
+          Already have account? Login
         </button>
       </div>
     </mat-card-content>

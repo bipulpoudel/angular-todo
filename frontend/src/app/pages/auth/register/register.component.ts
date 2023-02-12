@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { TokenService } from 'src/app/services/token/token.service';
@@ -13,7 +14,8 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private authServices: AuthService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private router: Router
   ) {}
 
   formData = {
@@ -55,6 +57,8 @@ export class RegisterComponent {
           this.tokenService.saveToken(data.token);
           this.loading = false;
           this.registerForm.reset();
+
+          window.location.reload();
         },
         error: (err) => {
           const { error } = err;
@@ -63,5 +67,9 @@ export class RegisterComponent {
         },
       });
     }
+  }
+
+  goToLogin() {
+    this.router.navigate(['auth/register']);
   }
 }

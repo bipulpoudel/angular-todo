@@ -1,21 +1,13 @@
 import * as Yup from "yup";
-import bcrypt from "bcryptjs";
 
-import { IUser } from "../interfaces";
 import { Todo, User } from "../entity";
-import {
-  errorHandler,
-  generateToken,
-  sendError,
-  sendSuccess,
-  translateText,
-} from "../utils";
+import { errorHandler, sendError, sendSuccess, translateText } from "../utils";
 
 // @desc   Create todo for user
 // @route   POST /todos/create
 // @access  Private
 export const create = async (req, res) => {
-  const { title, description } = req.body;
+  const { title } = req.body;
 
   const schema = Yup.object().shape({
     title: Yup.string().required("Title is a required field"),
@@ -26,7 +18,7 @@ export const create = async (req, res) => {
       title,
     });
 
-    const user = await User.findOneBy({ id: 1 });
+    const user = await User.findOneBy({ id: req.user.id });
 
     const todo = await Todo.create({
       title,
@@ -56,7 +48,7 @@ export const create = async (req, res) => {
 export const list = async (req, res) => {
   try {
     const user = await User.findOne({
-      where: { id: 1 },
+      where: { id: req.user.id },
       relations: {
         todos: true,
       },
