@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { ITodo } from 'src/app/interfaces';
-import { API_URL } from '../config';
+import { environment } from 'src/environments/environments';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { API_URL } from '../config';
 export class TodoService {
   constructor(private http: HttpClient) {}
 
-  apiURL = API_URL + '/todos';
+  apiURL = environment.apiUrl + '/todos';
 
   create(data: ITodo) {
     let formData = {

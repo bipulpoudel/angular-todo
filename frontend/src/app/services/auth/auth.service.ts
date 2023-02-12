@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { API_URL } from '../config';
+import { environment } from 'src/environments/environments';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,7 @@ import { API_URL } from '../config';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  apiURL = API_URL + '/auth';
+  apiURL = environment.apiUrl + '/auth';
 
   login(data: any) {
     let formData = {
