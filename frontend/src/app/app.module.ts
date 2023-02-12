@@ -5,6 +5,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { NgChartsModule } from 'ng2-charts';
+
 // component imports::
 import { HeaderComponent } from './components/header/header.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
@@ -19,6 +21,8 @@ import { RegisterComponent } from './pages/auth/register/register.component';
 import { TodoFormComponent } from './components/todo-form/todo-form.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { TokenInterceptorService } from './interceptors/token-interceptor.service';
+import { AdminComponent } from './pages/admin/admin.component';
+import { AnalyticsComponent } from './pages/admin/analytics/analytics.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +34,16 @@ import { TokenInterceptorService } from './interceptors/token-interceptor.servic
     TodoItemComponent,
     TodoFormComponent,
     AlertComponent,
+    AdminComponent,
+    AnalyticsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, MaterialModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MaterialModule,
+    HttpClientModule,
+    NgChartsModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

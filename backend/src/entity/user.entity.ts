@@ -6,7 +6,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  OneToOne,
 } from "typeorm";
+import { Analytics } from "./analytics.entity";
 
 import { Todo } from "./todo.entity";
 

@@ -61,9 +61,8 @@ export class RegisterComponent {
           window.location.reload();
         },
         error: (err) => {
-          const { error } = err;
           this.loading = false;
-          this.errorMessage = error.message;
+          this.errorMessage = err;
         },
       });
     }

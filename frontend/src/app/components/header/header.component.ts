@@ -16,4 +16,12 @@ export class HeaderComponent {
 
     window.location.reload();
   }
+
+  goToAdmin() {
+    this.router.navigate(['/admin']);
+  }
+
+  goToHome() {
+    this.router.navigate(['/']);
+  }
 }

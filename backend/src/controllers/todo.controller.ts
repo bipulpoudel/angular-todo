@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import { Todo, User } from "../entity";
+import { Analytics, Todo, User } from "../entity";
 import { errorHandler, sendError, sendSuccess, translateText } from "../utils";
 
 // @desc   Create todo for user
@@ -123,6 +123,14 @@ export const translate = async (req, res) => {
       text: todo.title,
       to: language,
     });
+
+    let analytics = await Analytics.create({
+      userId: req.user.id,
+      text: todo.title,
+      language,
+    });
+
+    analytics.save();
 
     return sendSuccess({
       res,

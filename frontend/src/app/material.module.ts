@@ -19,8 +19,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
+  imports: [],
   exports: [
     CommonModule,
     BrowserAnimationsModule,
@@ -41,6 +44,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatTooltipModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatTableModule,
+    MatPaginatorModule,
   ],
   providers: [MatDatepickerModule],
 })

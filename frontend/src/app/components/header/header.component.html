@@ -1,5 +1,11 @@
 <mat-toolbar color="primary">
   <span>TODO's app</span>
   <span class="spacer"></span>
+  <button style="margin-right: 20px" mat-raised-button (click)="goToAdmin()">
+    Admin dashboard
+  </button>
+  <button style="margin-right: 20px" mat-raised-button (click)="goToHome()">
+    Home
+  </button>
   <button mat-raised-button (click)="logOut()">Logout</button>
 </mat-toolbar>

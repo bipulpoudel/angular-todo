@@ -10,6 +10,7 @@ import { TodoService } from 'src/app/services/todo/todo.service';
 })
 export class IndexComponent {
   todoList: ITodo[] = [];
+  loading = false;
   language = 'fr';
 
   constructor(private todoService: TodoService) {}
@@ -19,8 +20,10 @@ export class IndexComponent {
   }
 
   getAllTodos() {
+    this.loading = true;
     this.todoService.list().subscribe((response: any) => {
       this.todoList = response?.data?.todos;
+      this.loading = false;
     });
   }
 

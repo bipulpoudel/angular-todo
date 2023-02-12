@@ -33,4 +33,9 @@
       ></app-todo-item>
     </div>
   </mat-card-content>
+  <mat-progress-bar
+    *ngIf="loading"
+    color="primary"
+    mode="indeterminate"
+  ></mat-progress-bar>
 </mat-card>

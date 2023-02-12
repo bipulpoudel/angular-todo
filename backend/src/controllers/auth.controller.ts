@@ -110,7 +110,7 @@ export const register = async (req, res) => {
       type,
     });
 
-    user.save();
+    await user.save();
 
     const token = generateToken(user.id);
 
