@@ -28,6 +28,6 @@
     "build": "tsc",
     "postinstall": "npm run build",
     "dev": "NODE_ENV=development nodemon index.ts",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+    "prebuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   }
 }
