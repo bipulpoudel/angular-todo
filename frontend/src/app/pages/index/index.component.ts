@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import ITodo from 'src/app/interfaces/ITodo';
 import { TodoService } from 'src/app/services/todo/todo.service';
@@ -12,11 +13,16 @@ export class IndexComponent {
   todoList: ITodo[] = [];
   loading = false;
   language = 'fr';
+  errorMessage = '';
 
-  constructor(private todoService: TodoService) {}
+  constructor(
+    private todoService: TodoService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.getAllTodos();
+    this.errorMessage = this.route.snapshot.paramMap.get('message') || '';
   }
 
   getAllTodos() {

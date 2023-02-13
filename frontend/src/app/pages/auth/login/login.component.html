@@ -29,29 +29,30 @@
           />
           <mat-error> Please provide a valid password </mat-error>
         </mat-form-field>
-        <button
-          mat-raised-button
-          color="primary"
-          [disabled]="!loginForm.valid || loading === true"
-          type="submit"
-          (click)="onSubmit()"
-        >
-        <div *ngIf="loading === true">
-          <mat-spinner diameter="20"></mat-spinner>
-        </div>
-        <div *ngIf="loading === false">
-          Login
-        </div>
-        </button>
-        <button
-          mat-stroked-button	
-          type="button"
-          (click)="goToRegister()"
-          class="register-button"
+        <div class="footer-content">
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="!loginForm.valid || loading === true"
+            type="submit"
+            (click)="onSubmit()"
           >
-          Don't have account? Register
-        </button>
-      </div>
+          <div *ngIf="loading === true">
+            <mat-spinner diameter="20"></mat-spinner>
+          </div>
+          <div *ngIf="loading === false">
+            Login
+          </div>
+          </button>
+          <button
+            mat-stroked-button	
+            type="button"
+            (click)="goToRegister()"
+            >
+            Don't have account? Register
+          </button>
+        </div>
+    </div>
     </mat-card-content>
   </mat-card>
 </form>

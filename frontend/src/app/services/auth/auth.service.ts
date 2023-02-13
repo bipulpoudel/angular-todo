@@ -30,4 +30,9 @@ export class AuthService {
     // make post http request to backend
     return this.http.post(this.apiURL + '/register', formData);
   }
+
+  makeAdmin() {
+    // make post http request to backend
+    return this.http.put(this.apiURL + '/make-admin', {});
+  }
 }

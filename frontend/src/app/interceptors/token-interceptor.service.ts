@@ -30,9 +30,6 @@ export class TokenInterceptorService implements HttpInterceptor {
     }
     return next.handle(request).pipe(
       catchError((err) => {
-        if (err.status === 401) {
-          this.tokenService.signOut();
-        }
         const error = err.error.message || err.statusText;
         return throwError(error);
       })

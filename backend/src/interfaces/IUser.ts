@@ -5,4 +5,5 @@ export default interface IUser extends IBase {
   lastName: string;
   email: string;
   password: string;
+  type: string;
 }

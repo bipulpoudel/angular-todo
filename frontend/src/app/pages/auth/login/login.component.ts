@@ -60,7 +60,6 @@ export class LoginComponent {
           window.location.reload();
         },
         error: (err) => {
-          console.log(err);
           this.loading = false;
           this.errorMessage = err;
         },

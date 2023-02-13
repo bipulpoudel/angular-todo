@@ -1,0 +1,22 @@
+<div class="container">
+  <mat-icon
+    aria-hidden="error"
+    aria-label="Access denied"
+    fontIcon="error"
+    class="error-icon"
+  ></mat-icon>
+  <h1>You don't have admin access to view this page</h1>
+  <p>In order to view this page, you need to be make yourself admin.</p>
+  <button
+    mat-stroked-button
+    color="primary"
+    type="submit"
+    (click)="makeAdmin()"
+    [disabled]="loading === true"
+  >
+    <div *ngIf="loading === true">
+      <mat-spinner diameter="20" color="default"></mat-spinner>
+    </div>
+    <div *ngIf="loading === false">Make me admin</div>
+  </button>
+</div>

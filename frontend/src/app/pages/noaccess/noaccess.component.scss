@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  padding-top: 5rem;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.error-icon {
+  font-size: 7rem;
+  height: 100%;
+  width: fit-content;
+  color: #f44336;
+}
+
+.error-message {
+  background-color: red;
+  color: white;
+  padding: 1rem;
+}

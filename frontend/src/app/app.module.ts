@@ -23,6 +23,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { TokenInterceptorService } from './interceptors/token-interceptor.service';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AnalyticsComponent } from './pages/admin/analytics/analytics.component';
+import { NoaccessComponent } from './pages/noaccess/noaccess.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AnalyticsComponent } from './pages/admin/analytics/analytics.component'
     AlertComponent,
     AdminComponent,
     AnalyticsComponent,
+    NoaccessComponent,
   ],
   imports: [
     BrowserModule,

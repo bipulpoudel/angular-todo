@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginGuard } from './guards/login.guard';
+import { NoAccessGuard } from './guards/noaccess.guard';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AnalyticsComponent } from './pages/admin/analytics/analytics.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { IndexComponent } from './pages/index/index.component';
+import { NoaccessComponent } from './pages/noaccess/noaccess.component';
 
 const routes: Routes = [
   {
@@ -29,8 +32,13 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'noaccess',
+    component: NoaccessComponent,
+    canActivate: [NoAccessGuard],
+  },
+  {
     path: 'admin',
-    canActivate: [AuthGuard],
+    canActivate: [AdminGuard],
     children: [
       {
         path: '',

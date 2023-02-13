@@ -48,7 +48,10 @@ export const login = async (req, res) => {
 
     let user: IUser = await User.findOneBy({ email });
 
-    const token = generateToken(user.id);
+    const token = generateToken({
+      id: user.id,
+      type: user.type,
+    });
 
     return sendSuccess({
       res,
@@ -112,11 +115,55 @@ export const register = async (req, res) => {
 
     await user.save();
 
-    const token = generateToken(user.id);
+    const token = generateToken({
+      id: user.id,
+      type: user.type,
+    });
 
     return sendSuccess({
       res,
       message: "User has been register successfully.",
+      data: {
+        token,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    errorHandler(res, err);
+  }
+};
+
+// @desc    Make user admin
+// @route   POST /users/make-admin
+// @access  Private
+export const makeAdmin = async (req, res) => {
+  try {
+    let user = await User.findOneBy({
+      id: req.user.id,
+    });
+
+    if (!user) {
+      return sendError({
+        res,
+        status: 404,
+        data: null,
+        message: "User not found",
+      });
+    }
+
+    // update the user type to admin
+    user.type = "admin";
+
+    await user.save();
+
+    const token = generateToken({
+      id: user.id,
+      type: user.type,
+    });
+
+    return sendSuccess({
+      res,
+      message: "User has been converted to admin successfully!",
       data: {
         token,
       },
