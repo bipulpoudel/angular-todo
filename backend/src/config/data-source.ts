@@ -6,11 +6,11 @@ import { Todo, User, Analytics } from "../entity";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "containers-us-west-144.railway.app",
-  port: 6621,
-  username: "postgres",
-  password: "kewq92P4sclsSBGEErhS",
-  database: "railway",
+  host: process.env.HOST,
+  port: Number(process.env.PORT) || 5432,
+  username: process.env.USERNAME,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
   synchronize: true,
   logging: false,
   entities: [User, Todo, Analytics],
