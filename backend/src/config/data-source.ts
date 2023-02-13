@@ -7,7 +7,7 @@ import { Todo, User, Analytics } from "../entity";
 export const AppDataSource = new DataSource({
   type: "postgres",
   host: process.env.HOST,
-  port: Number(process.env.PORT) || 5432,
+  port: Number(process.env.DATABASE_PORT) || 5432,
   username: process.env.USERNAME,
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
